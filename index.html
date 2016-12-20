@@ -19,8 +19,17 @@
         <script src="js/Autolinker.min.js"></script>
         <script src="https://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.js"></script>
         <script src="js/leaflet.markercluster.js"></script>
+
         <style>
         html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <style>
+        html, body, #map_top10Schools {
             width: 100%;
             height: 100%;
             padding: 0;
@@ -31,8 +40,15 @@
     </head>
 
     <body>
+      <script src="data/json_Commareas0.js"></script>
+      <script src="data/json_2016watermains1.js"></script>
+      <script src="data/json_2016water2.js"></script>
+      <script src="data/json_ParkResults3.js"></script>
+      <script src="data/json_SchoolTestResults4.js"></script>
+      <script src="data/json_Top10Schools5.js"></script>
+
 <div id="all"></div>
-<div id="top10"></div>
-<iframe src="all.html"></iframe>
+<div id="map_top10Schools"></div>
+      <script src="map_scripts/Top10Schools.js"></script>
     </body>
 </html>
