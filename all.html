@@ -20,7 +20,7 @@
         <script src="https://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.js"></script>
         <script src="js/leaflet.markercluster.js"></script>
         <style>
-        html, body, #map {
+        html, body, #all {
             width: 100%;
             height: 100%;
             padding: 0;
@@ -30,7 +30,7 @@
         <title>A Look At Lead</title>
     </head>
     <body>
-        <div id="map">
+        <div id="all">
         </div>
         <script src="data/json_Commareas0.js"></script>
         <script src="data/json_2016watermains1.js"></script>
@@ -59,11 +59,11 @@
                 return this._bounds;
             }
         });
-        var map = L.map('map', {
+        var all = L.map('all', {
             zoomControl:true, maxZoom:28, minZoom:1
         })
-        var hash = new L.Hash(map);
-        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var hash = new L.Hash(all);
+        all.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         var feature_group = new L.featureGroup([]);
         var bounds_group = new L.featureGroup([]);
         var raster_group = new L.LayerGroup([]);
@@ -71,14 +71,14 @@
             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: 28
         });
-        basemap0.addTo(map);
+        basemap0.addTo(all);
         function setBounds() {
             if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
+                all.fitBounds(bounds_group.getBounds());
             }
         }
         function geoJson2heat(geojson, weight) {
-          return geojson.features.map(function(feature) {
+          return geojson.features.all(function(feature) {
             return [
               feature.geometry.coordinates[1],
               feature.geometry.coordinates[0],
@@ -110,8 +110,8 @@
                 fillOpacity: 0.0
             };
         }
-        map.createPane('pane_Commareas0');
-        map.getPane('pane_Commareas0').style.zIndex = 601;
+        all.createPane('pane_Commareas0');
+        all.getPane('pane_Commareas0').style.zIndex = 601;
         var json_Commareas0JSON = new L.geoJson(json_Commareas0, {
             pane: 'pane_Commareas0',
             onEachFeature: pop_Commareas0,
@@ -140,8 +140,8 @@
                 opacity: 1.0
             };
         }
-        map.createPane('pane_2016watermains1');
-        map.getPane('pane_2016watermains1').style.zIndex = 602;
+        all.createPane('pane_2016watermains1');
+        all.getPane('pane_2016watermains1').style.zIndex = 602;
         var json_2016watermains1JSON = new L.geoJson(json_2016watermains1, {
             pane: 'pane_2016watermains1',
             onEachFeature: pop_2016watermains1,
@@ -171,8 +171,8 @@
                 opacity: 1.0
             };
         }
-        map.createPane('pane_2016water2');
-        map.getPane('pane_2016water2').style.zIndex = 603;
+        all.createPane('pane_2016water2');
+        all.getPane('pane_2016water2').style.zIndex = 603;
         var json_2016water2JSON = new L.geoJson(json_2016water2, {
             pane: 'pane_2016water2',
             onEachFeature: pop_2016water2,
@@ -264,8 +264,8 @@
         }
 
         }
-        map.createPane('pane_ParkResults3');
-        map.getPane('pane_ParkResults3').style.zIndex = 604;
+        all.createPane('pane_ParkResults3');
+        all.getPane('pane_ParkResults3').style.zIndex = 604;
         var json_ParkResults3JSON = new L.geoJson(json_ParkResults3, {
             pane: 'pane_ParkResults3',
             onEachFeature: pop_ParkResults3,
@@ -373,8 +373,8 @@
         }
 
         }
-        map.createPane('pane_SchoolTestResults4');
-        map.getPane('pane_SchoolTestResults4').style.zIndex = 605;
+        all.createPane('pane_SchoolTestResults4');
+        all.getPane('pane_SchoolTestResults4').style.zIndex = 605;
         var json_SchoolTestResults4JSON = new L.geoJson(json_SchoolTestResults4, {
             pane: 'pane_SchoolTestResults4',
             onEachFeature: pop_SchoolTestResults4,
@@ -521,8 +521,8 @@
                 break;
             }
         }
-        map.createPane('pane_Top10Schools5');
-        map.getPane('pane_Top10Schools5').style.zIndex = 606;
+        all.createPane('pane_Top10Schools5');
+        all.getPane('pane_Top10Schools5').style.zIndex = 606;
         var json_Top10Schools5JSON = new L.geoJson(json_Top10Schools5, {
             pane: 'pane_Top10Schools5',
             onEachFeature: pop_Top10Schools5,
@@ -532,10 +532,10 @@
         });
         bounds_group.addLayer(json_Top10Schools5JSON);
         feature_group.addLayer(json_Top10Schools5JSON);
-        raster_group.addTo(map);
-        feature_group.addTo(map);
+        raster_group.addTo(all);
+        feature_group.addTo(all);
         var title = new L.Control();
-        title.onAdd = function (map) {
+        title.onAdd = function (all) {
             this._div = L.DomUtil.create('div', 'info');
             this.update();
             return this._div;
@@ -543,15 +543,15 @@
         title.update = function () {
             this._div.innerHTML = '<h2>A Look At Lead</h2>';
         };
-        title.addTo(map);
+        title.addTo(all);
         var osmGeocoder = new L.Control.OSMGeocoder({
             collapsed: false,
             position: 'topright',
             text: 'Search',
         });
-        osmGeocoder.addTo(map);
+        osmGeocoder.addTo(all);
         var baseMaps = {'OSM B&W': basemap0};
-        L.control.layers(baseMaps,{'Top10Schools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_1.png" /> 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_2.png" /> 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_3.png" /> 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_4.png" /> 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_5.png" /> 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_6.png" /> 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_7.png" /> 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_8.png" /> 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_9.png" /> 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_10.png" /> 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_.png" /> <br />': json_Top10Schools5JSON,'School Test Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_0050.png" />  0.0-5.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_50100.png" />  5.0-10.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_100150.png" />  10.0-15.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_150200.png" />  15.0-20.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_200250.png" />  20.0-25.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_250260.png" />  25.0-26.0%<br />': json_SchoolTestResults4JSON,'Park Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_00.png" />  0-0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_025.png" />  0-25%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_2550.png" />  25-50%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_5075.png" />  50-75%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_75100.png" />  75-100%<br />': json_ParkResults3JSON,'<img src="legend/2016water2.png" /> 2016water': json_2016water2JSON,'<img src="legend/2016watermains1.png" /> 2016_watermains': json_2016watermains1JSON,'<img src="legend/Commareas0.png" /> Comm_areas': json_Commareas0JSON,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Top10Schools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_1.png" /> 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_2.png" /> 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_3.png" /> 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_4.png" /> 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_5.png" /> 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_6.png" /> 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_7.png" /> 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_8.png" /> 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_9.png" /> 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_10.png" /> 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_.png" /> <br />': json_Top10Schools5JSON,'School Test Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_0050.png" />  0.0-5.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_50100.png" />  5.0-10.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_100150.png" />  10.0-15.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_150200.png" />  15.0-20.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_200250.png" />  20.0-25.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_250260.png" />  25.0-26.0%<br />': json_SchoolTestResults4JSON,'Park Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_00.png" />  0-0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_025.png" />  0-25%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_2550.png" />  25-50%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_5075.png" />  50-75%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_75100.png" />  75-100%<br />': json_ParkResults3JSON,'<img src="legend/2016water2.png" /> 2016water': json_2016water2JSON,'<img src="legend/2016watermains1.png" /> 2016_watermains': json_2016watermains1JSON,'<img src="legend/Commareas0.png" /> Comm_areas': json_Commareas0JSON,},{collapsed:false}).addTo(all);
         setBounds();
         </script>
     </body>
