@@ -21,17 +21,17 @@ L.ImageOverlay.include({
   }
 });
 var map_top10Schools = L.map('map_top10Schools', {
-  zoomControl:true, maxZoom:19, minZoom:1
+  zoomControl:true, maxZoom:18, minZoom:1
 })
 map_top10Schools.zoomControl.setPosition('topright');
 map_top10Schools.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
 var feature_group = new L.featureGroup([]);
 var bounds_group = new L.featureGroup([]);
 var raster_group = new L.LayerGroup([]);
-var basemap0 = L.tileLayer('http[s]://cartobase-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
+var basemap0 = L.tileLayer('https://cartobase-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
 attribution: '&copy; <a href="http://www.openstreetmap_top10Schools.org/copyright">OpenStreetmap_top10Schools</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 subdomains: 'abcd',
-maxZoom: 19
+maxZoom: 18
 });
 basemap0.addTo(map_top10Schools);
 function setBounds() {
@@ -523,7 +523,7 @@ map_top10Schools.createPane('labels');
 map_top10Schools.getPane('labels').style.zIndex = 650;
 map_top10Schools.getPane('labels').style.pointerEvents = 'none';
 map_top10Schools.getPane('pane_Commareas0').style.pointerEvents = 'none';
-var positronLabels = L.tileLayer('http[s]://cartobase-{s}.global.ssl.fastly.net/only_labels/{z}/{x}/{y}.png', {
+var positronLabels = L.tileLayer('https://cartobase-{s}.global.ssl.fastly.net/only_labels/{z}/{x}/{y}.png', {
 attribution: '©OpenStreetmap_top10Schools, ©CartoDB',
 pane: 'labels'
 }).addTo(map_top10Schools);
