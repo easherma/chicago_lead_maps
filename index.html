@@ -15,10 +15,10 @@
         <script src="js/leaflet-heat.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/OSMBuildings-Leaflet.js"></script>
-        <script src="js/leaflet-hash.js"></script>
+        <!--<script src="js/leaflet-hash.js"></script>-->
         <script src="js/Autolinker.min.js"></script>
         <script src="https://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.js"></script>
-        <script src="js/leaflet.markercluster.js"></script>
+        <!--<script src="js/leaflet.markercluster.js"></script>-->
 
         <style>
         html, body, #all {
@@ -36,6 +36,22 @@
             margin: 0;
         }
         </style>
+        <style>
+        html, body, #map_parks {
+            width: 100%;
+            height: 400px;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <style>
+        html, body, #map_detail {
+            width: 100%;
+            height: 400px;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
         <title>A Look At Lead</title>
     </head>
 
@@ -47,9 +63,12 @@
       <script src="data/json_SchoolTestResults4.js"></script>
       <script src="data/json_Top10Schools5.js"></script>
 
-<div id="all"></div>
-      <script src="map_scripts/all.js"></script>
+
 <div id="map_top10Schools"></div>
       <script src="map_scripts/Top10Schools.js"></script>
+<div id="map_parks"></div>
+      <script src="map_scripts/parks.js"></script>
+<div id="map_detail"></div>
+      <script src="map_scripts/detail.js"></script>
     </body>
 </html>

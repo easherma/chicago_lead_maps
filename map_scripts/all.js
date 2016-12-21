@@ -22,7 +22,7 @@ L.ImageOverlay.include({
 var all = L.map('all', {
     zoomControl:true, maxZoom:28, minZoom:1
 })
-var hash = new L.Hash(all);
+//var hash = new L.Hash(all);
 all.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
 var feature_group = new L.featureGroup([]);
 var bounds_group = new L.featureGroup([]);

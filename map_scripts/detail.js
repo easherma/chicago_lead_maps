@@ -10,38 +10,41 @@ function highlightFeature(e) {
   } else {
     highlightLayer.setStyle({
       fillColor: '#ffff00',
-      fillOpacity: 1
+      fillOpacity: 1,
+      weight: 0.4,
+      opacity: '1.0',
     });
   }
-  highlightLayer.openPopup();
+  //highlightLayer.openPopup();
 }
 L.ImageOverlay.include({
   getBounds: function () {
       return this._bounds;
   }
 });
-var map_top10Schools = L.map('map_top10Schools', {
-  zoomControl:true, maxZoom:19, minZoom:1
+var map_detail = L.map('map_detail', {
+  zoom:13, zoomControl:true,  maxZoom:19, minZoom:10, center: L.LatLng(41.7703, -87.6377)
 })
-map_top10Schools.zoomControl.setPosition('topright');
-//var hash = new L.Hash(map_top10Schools);
-map_top10Schools.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+map_detail.zoomControl.setPosition('topright');
+
+//var hash = new L.Hash(map_detail);
+map_detail.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
 var feature_group = new L.featureGroup([]);
 var bounds_group = new L.featureGroup([]);
 var raster_group = new L.LayerGroup([]);
 var basemap0 = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
-attribution: '&copy; <a href="http://www.openstreetmap_top10Schools.org/copyright">OpenStreetmap_top10Schools</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+attribution: '&copy; <a href="http://www.openstreetmap_detail.org/copyright">OpenStreetmap_detail</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 subdomains: 'abcd',
 maxZoom: 19
 });
-basemap0.addTo(map_top10Schools);
+basemap0.addTo(map_detail);
 function setBounds() {
   if (bounds_group.getLayers().length) {
-      map_top10Schools.fitBounds(bounds_group.getBounds());
+      map_detail.fitBounds(bounds_group.getBounds());
   }
 }
 function geoJson2heat(geojson, weight) {
-return geojson.features.map_top10Schools(function(feature) {
+return geojson.features.map_detail(function(feature) {
   return [
     feature.geometry.coordinates[1],
     feature.geometry.coordinates[0],
@@ -73,8 +76,8 @@ function doStyleCommareas0(feature) {
       fillOpacity: 0.0
   };
 }
-map_top10Schools.createPane('pane_Commareas0');
-map_top10Schools.getPane('pane_Commareas0').style.zIndex = 400;
+map_detail.createPane('pane_Commareas0');
+map_detail.getPane('pane_Commareas0').style.zIndex = 400;
 var json_Commareas0JSON = new L.geoJson(json_Commareas0, {
   pane: 'pane_Commareas0',
   //onEachFeature: pop_Commareas0,
@@ -104,8 +107,8 @@ function doStyle2016watermains1(feature) {
       opacity: 1.0
   };
 }
-map_top10Schools.createPane('pane_2016watermains1');
-map_top10Schools.getPane('pane_2016watermains1').style.zIndex = 602;
+map_detail.createPane('pane_2016watermains1');
+map_detail.getPane('pane_2016watermains1').style.zIndex = 602;
 var json_2016watermains1JSON = new L.geoJson(json_2016watermains1, {
   pane: 'pane_2016watermains1',
   onEachFeature: pop_2016watermains1,
@@ -135,8 +138,8 @@ function doStyle2016water2(feature) {
       opacity: 1.0
   };
 }
-map_top10Schools.createPane('pane_2016water2');
-map_top10Schools.getPane('pane_2016water2').style.zIndex = 603;
+map_detail.createPane('pane_2016water2');
+map_detail.getPane('pane_2016water2').style.zIndex = 603;
 var json_2016water2JSON = new L.geoJson(json_2016water2, {
   pane: 'pane_2016water2',
   onEachFeature: pop_2016water2,
@@ -152,7 +155,7 @@ function pop_ParkResults3(feature, layer) {
       },
       mouseover: highlightFeature,
   });
-  var popupContent = '<table><tr><th scope="row">fid</th><td>' + (feature.properties['fid'] !== null ? Autolinker.link(String(feature.properties['fid'])) : '') + '</td></tr><tr><th scope="row">park_no</th><td>' + (feature.properties['park_no'] !== null ? Autolinker.link(String(feature.properties['park_no'])) : '') + '</td></tr><tr><th scope="row">park</th><td>' + (feature.properties['park'] !== null ? Autolinker.link(String(feature.properties['park'])) : '') + '</td></tr><tr><th scope="row">location</th><td>' + (feature.properties['location'] !== null ? Autolinker.link(String(feature.properties['location'])) : '') + '</td></tr><tr><th scope="row">zip</th><td>' + (feature.properties['zip'] !== null ? Autolinker.link(String(feature.properties['zip'])) : '') + '</td></tr><tr><th scope="row">acres</th><td>' + (feature.properties['acres'] !== null ? Autolinker.link(String(feature.properties['acres'])) : '') + '</td></tr><tr><th scope="row">ward</th><td>' + (feature.properties['ward'] !== null ? Autolinker.link(String(feature.properties['ward'])) : '') + '</td></tr><tr><th scope="row">park_class</th><td>' + (feature.properties['park_class'] !== null ? Autolinker.link(String(feature.properties['park_class'])) : '') + '</td></tr><tr><th scope="row">label</th><td>' + (feature.properties['label'] !== null ? Autolinker.link(String(feature.properties['label'])) : '') + '</td></tr><tr><th scope="row">lookupid</th><td>' + (feature.properties['lookupid'] !== null ? Autolinker.link(String(feature.properties['lookupid'])) : '') + '</td></tr><tr><th scope="row">park_name</th><td>' + (feature.properties['park_name'] !== null ? Autolinker.link(String(feature.properties['park_name'])) : '') + '</td></tr><tr><th scope="row">score</th><td>' + (feature.properties['score'] !== null ? Autolinker.link(String(feature.properties['score'])) : '') + '</td></tr><tr><th scope="row">num_fixtur</th><td>' + (feature.properties['num_fixtur'] !== null ? Autolinker.link(String(feature.properties['num_fixtur'])) : '') + '</td></tr><tr><th scope="row">geo_park</th><td>' + (feature.properties['geo_park'] !== null ? Autolinker.link(String(feature.properties['geo_park'])) : '') + '</td></tr><tr><th scope="row">score_percent</th><td>' + (feature.properties['score_percent'] !== null ? Autolinker.link(String(feature.properties['score_percent'])) : '') + '</td></tr></table>';
+  var popupContent = '<table></td></tr><tr><th scope="row">Park</th><td>' + (feature.properties['label'] !== null ? Autolinker.link(String(feature.properties['label'])) : '') + '</td></tr><tr><th scope="row">Fixtures</th><td>' + (feature.properties['num_fixtur'] !== null ? Autolinker.link(String(feature.properties['num_fixtur'])) : '') +   '</td></tr><tr><th scope="row">Above Epa Limit</th><td>' + (feature.properties['score_percent'] !== null ? Autolinker.link(String(feature.properties['score_percent'])) : '') + '%' + '</td></tr><tr><th scope="row">Address</th><td>' + (feature.properties['location'] !== null ? Autolinker.link(String(feature.properties['location'])) : '') + '</td></tr><tr><th scope="row">Zip</th><td>' + (feature.properties['zip'] !== null ? Autolinker.link(String(feature.properties['zip'])) : '') + '</td></tr></table>';
   layer.bindPopup(popupContent);
 }
 
@@ -228,24 +231,24 @@ if (feature.properties['score_percent'] >= 75.0 &&
 }
 
 }
-/*map_top10Schools.createPane('pane_ParkResults3');
-map_top10Schools.getPane('pane_ParkResults3').style.zIndex = 604;
+map_detail.createPane('pane_ParkResults3');
+map_detail.getPane('pane_ParkResults3').style.zIndex = 604;
 var json_ParkResults3JSON = new L.geoJson(json_ParkResults3, {
   pane: 'pane_ParkResults3',
   onEachFeature: pop_ParkResults3,
   pointToLayer: function (feature, latlng) {
       return L.circleMarker(latlng, doStyleParkResults3(feature))
   }
-});*/
-/*bounds_group.addLayer(json_ParkResults3JSON);
-feature_group.addLayer(json_ParkResults3JSON);*/
+});
+bounds_group.addLayer(json_ParkResults3JSON);
+feature_group.addLayer(json_ParkResults3JSON);
 function pop_SchoolTestResults4(feature, layer) {
   layer.on({
       mouseout: function(e) {
           layer.setStyle(doStyleSchoolTestResults4(feature));
 
       },
-      //mouseover: highlightFeature,
+      mouseover: highlightFeature,
   });
   var popupContent = '<table><tr><th scope="row">schoolname</th><td>' + (feature.properties['schoolname'] !== null ? Autolinker.link(String(feature.properties['schoolname'])) : '') + '</td></tr><tr><th scope="row">score</th><td>' + (feature.properties['score'] !== null ? Autolinker.link(String(feature.properties['score'])) : '') + '</td></tr><tr><th scope="row">num_fixtures</th><td>' + (feature.properties['num_fixtures'] !== null ? Autolinker.link(String(feature.properties['num_fixtures'])) : '') + '</td></tr><tr><th scope="row">lat</th><td>' + (feature.properties['lat'] !== null ? Autolinker.link(String(feature.properties['lat'])) : '') + '</td></tr><tr><th scope="row">long</th><td>' + (feature.properties['long'] !== null ? Autolinker.link(String(feature.properties['long'])) : '') + '</td></tr><tr><th scope="row">score_percent</th><td>' + (feature.properties['score_percent'] !== null ? Autolinker.link(String(feature.properties['score_percent'])) : '') + '</td></tr></table>';
   layer.bindPopup(popupContent);
@@ -259,9 +262,9 @@ if (feature.properties['score_percent'] >= 0.0 &&
       radius: 6.0,
       fillColor: '#fef0d9',
       color: '#000000',
-      weight: 0.0,
+      weight: .2,
       fillOpacity: '1.0',
-      opacity: '1.0',
+      opacity: '0.0',
       dashArray: ''
   }
 }
@@ -337,8 +340,8 @@ if (feature.properties['score_percent'] >= 25.0 &&
 }
 
 }
-map_top10Schools.createPane('pane_SchoolTestResults4');
-map_top10Schools.getPane('pane_SchoolTestResults4').style.zIndex = 605;
+map_detail.createPane('pane_SchoolTestResults4');
+map_detail.getPane('pane_SchoolTestResults4').style.zIndex = 605;
 var json_SchoolTestResults4JSON = new L.geoJson(json_SchoolTestResults4, {
   pane: 'pane_SchoolTestResults4',
   onEachFeature: pop_SchoolTestResults4,
@@ -346,8 +349,8 @@ var json_SchoolTestResults4JSON = new L.geoJson(json_SchoolTestResults4, {
       return L.circleMarker(latlng, doStyleSchoolTestResults4(feature))
   }
 });
-/*bounds_group.addLayer(json_SchoolTestResults4JSON);
-feature_group.addLayer(json_SchoolTestResults4JSON);*/
+bounds_group.addLayer(json_SchoolTestResults4JSON);
+feature_group.addLayer(json_SchoolTestResults4JSON);
 function pop_Top10Schools5(feature, layer) {
   layer.on({
       mouseout: function(e) {
@@ -367,7 +370,7 @@ switch (feature.properties['rank']) {
           radius: 10.0,
           fillColor: '#67000d',
           color: '#000000',
-          weight: 0.0,
+          weight: 0,
           opacity: 1.0,
           dashArray: '',
           fillOpacity: '1.0',
@@ -485,8 +488,8 @@ switch (feature.properties['rank']) {
       break;
   }
 }
-map_top10Schools.createPane('pane_Top10Schools5');
-map_top10Schools.getPane('pane_Top10Schools5').style.zIndex = 620;
+/*map_detail.createPane('pane_Top10Schools5');
+map_detail.getPane('pane_Top10Schools5').style.zIndex = 620;
 var json_Top10Schools5JSON = new L.geoJson(json_Top10Schools5, {
   pane: 'pane_Top10Schools5',
   onEachFeature: pop_Top10Schools5,
@@ -495,36 +498,36 @@ var json_Top10Schools5JSON = new L.geoJson(json_Top10Schools5, {
   }
 });
 bounds_group.addLayer(json_Top10Schools5JSON);
-feature_group.addLayer(json_Top10Schools5JSON);
-raster_group.addTo(map_top10Schools);
-feature_group.addTo(map_top10Schools);
+feature_group.addLayer(json_Top10Schools5JSON);*/
+raster_group.addTo(map_detail);
+feature_group.addTo(map_detail);
 var title = new L.Control({position: 'topleft'});
-title.onAdd = function (map_top10Schools) {
+title.onAdd = function (map_detail) {
   this._div = L.DomUtil.create('div', 'info');
   this.update();
   return this._div;
 };
 title.update = function () {
-  this._div.innerHTML = '<h2>10 Schools with Highest Percentage of Fixtures Testing Above EPA Action Level</h2>';
+  this._div.innerHTML = '<h2>Detail Map, School and Park Results</h2>';
 };
 
-title.addTo(map_top10Schools);
+title.addTo(map_detail);
 var osmGeocoder = new L.Control.OSMGeocoder({
   collapsed: false,
   position: 'topright',
-  text: 'Enter address or Zip Code',
+  text: 'Search for Address or Park Name',
   bounds: setBounds()
 });
-osmGeocoder.addTo(map_top10Schools);
+osmGeocoder.addTo(map_detail);
 var basemaps = {'': basemap0};
 var water_mains = L.layerGroup([json_2016water2JSON, json_2016watermains1JSON]);
-L.control.layers(basemaps,{'Top10Schools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_1.png" /> 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_2.png" /> 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_3.png" /> 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_4.png" /> 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_5.png" /> 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_6.png" /> 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_7.png" /> 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_8.png" /> 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_9.png" /> 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_10.png" /> 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_.png" /> <br />': json_Top10Schools5JSON/*, 'School Test Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_0050.png" />  0.0-5.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_50100.png" />  5.0-10.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_100150.png" />  10.0-15.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_150200.png" />  15.0-20.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_200250.png" />  20.0-25.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_250260.png" />  25.0-26.0%<br />': json_SchoolTestResults4JSON/*,'Park Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_00.png" />  0-0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_025.png" />  0-25%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_2550.png" />  25-50%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_5075.png" />  50-75%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_75100.png" />  75-100%<br />': json_ParkResults3JSON*/,'<img src="legend/2016water2.png" /> 2016 Water Main Projects': water_mains },{collapsed:false, position: 'topleft'}).addTo(map_top10Schools);
+L.control.layers(basemaps,{/*'Top10Schools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_1.png" /> 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_2.png" /> 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_3.png" /> 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_4.png" /> 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_5.png" /> 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_6.png" /> 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_7.png" /> 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_8.png" /> 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_9.png" /> 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_10.png" /> 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_.png" /> <br />': json_Top10Schools5JSON,*/ 'School Test Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_0050.png" />  0.0-5.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_50100.png" />  5.0-10.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_100150.png" />  10.0-15.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_150200.png" />  15.0-20.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_200250.png" />  20.0-25.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_250260.png" />  25.0-26.0%<br />': json_SchoolTestResults4JSON,'Park Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_00.png" />  0-0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_025.png" />  0-25%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_2550.png" />  25-50%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_5075.png" />  50-75%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_75100.png" />  75-100%<br />': json_ParkResults3JSON,'<img src="legend/2016water2.png" /> 2016 Water Main Projects': water_mains },{collapsed:false, position: 'topleft'}).addTo(map_detail);
 setBounds();
-map_top10Schools.createPane('labels');
-map_top10Schools.getPane('labels').style.zIndex = 650;
-map_top10Schools.getPane('labels').style.pointerEvents = 'none';
-map_top10Schools.getPane('pane_Commareas0').style.pointerEvents = 'none';
+map_detail.createPane('labels');
+map_detail.getPane('labels').style.zIndex = 650;
+map_detail.getPane('labels').style.pointerEvents = 'none';
+map_detail.getPane('pane_Commareas0').style.pointerEvents = 'none';
 var positronLabels = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-attribution: '©OpenStreetmap_top10Schools, ©CartoDB',
+attribution: '©OpenStreetmap_detail, ©CartoDB',
 pane: 'labels'
-}).addTo(map_top10Schools);
+}).addTo(map_detail);
