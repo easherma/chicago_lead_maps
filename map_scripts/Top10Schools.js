@@ -28,7 +28,7 @@ map_top10Schools.attributionControl.addAttribution('<a href="https://github.com/
 var feature_group = new L.featureGroup([]);
 var bounds_group = new L.featureGroup([]);
 var raster_group = new L.LayerGroup([]);
-var basemap0 = L.tileLayer('https://cartobase-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
+var basemap0 = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
 attribution: '&copy; <a href="http://www.openstreetmap_top10Schools.org/copyright">OpenStreetmap_top10Schools</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 subdomains: 'abcd',
 maxZoom: 18
@@ -523,7 +523,7 @@ map_top10Schools.createPane('labels');
 map_top10Schools.getPane('labels').style.zIndex = 650;
 map_top10Schools.getPane('labels').style.pointerEvents = 'none';
 map_top10Schools.getPane('pane_Commareas0').style.pointerEvents = 'none';
-var positronLabels = L.tileLayer('https://cartobase-{s}.global.ssl.fastly.net/only_labels/{z}/{x}/{y}.png', {
+var positronLabels = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png', {
 attribution: '©OpenStreetmap_top10Schools, ©CartoDB',
 pane: 'labels'
 }).addTo(map_top10Schools);
