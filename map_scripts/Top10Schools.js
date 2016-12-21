@@ -21,9 +21,10 @@ L.ImageOverlay.include({
   }
 });
 var map_top10Schools = L.map('map_top10Schools', {
-  zoomControl:true, maxZoom:28, minZoom:1
+  zoomControl:true, maxZoom:19, minZoom:1
 })
-var hash = new L.Hash(map_top10Schools);
+map_top10Schools.zoomControl.setPosition('topright');
+//var hash = new L.Hash(map_top10Schools);
 map_top10Schools.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
 var feature_group = new L.featureGroup([]);
 var bounds_group = new L.featureGroup([]);
@@ -497,25 +498,27 @@ bounds_group.addLayer(json_Top10Schools5JSON);
 feature_group.addLayer(json_Top10Schools5JSON);
 raster_group.addTo(map_top10Schools);
 feature_group.addTo(map_top10Schools);
-var title = new L.Control();
+var title = new L.Control({position: 'topleft'});
 title.onAdd = function (map_top10Schools) {
   this._div = L.DomUtil.create('div', 'info');
   this.update();
   return this._div;
 };
 title.update = function () {
-  this._div.innerHTML = '<h2>Top 10 Highest School Results</h2>';
+  this._div.innerHTML = '<h2>10 Schools with Highest Percentage of Fixtures Testing Above EPA Action Level</h2>';
 };
+
 title.addTo(map_top10Schools);
 var osmGeocoder = new L.Control.OSMGeocoder({
   collapsed: false,
   position: 'topright',
-  text: 'Search',
+  text: 'Enter address or Zip Code',
+  bounds: setBounds()
 });
 osmGeocoder.addTo(map_top10Schools);
 var basemaps = {'': basemap0};
 var water_mains = L.layerGroup([json_2016water2JSON, json_2016watermains1JSON]);
-L.control.layers(basemaps,{'Top10Schools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_1.png" /> 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_2.png" /> 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_3.png" /> 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_4.png" /> 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_5.png" /> 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_6.png" /> 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_7.png" /> 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_8.png" /> 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_9.png" /> 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_10.png" /> 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_.png" /> <br />': json_Top10Schools5JSON/*, 'School Test Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_0050.png" />  0.0-5.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_50100.png" />  5.0-10.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_100150.png" />  10.0-15.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_150200.png" />  15.0-20.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_200250.png" />  20.0-25.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_250260.png" />  25.0-26.0%<br />': json_SchoolTestResults4JSON/*,'Park Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_00.png" />  0-0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_025.png" />  0-25%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_2550.png" />  25-50%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_5075.png" />  50-75%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_75100.png" />  75-100%<br />': json_ParkResults3JSON*/,'<img src="legend/2016water2.png" /> 2016 Water Main Projects': water_mains },{collapsed:false}).addTo(map_top10Schools);
+L.control.layers(basemaps,{'Top10Schools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_1.png" /> 1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_2.png" /> 2<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_3.png" /> 3<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_4.png" /> 4<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_5.png" /> 5<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_6.png" /> 6<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_7.png" /> 7<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_8.png" /> 8<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_9.png" /> 9<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_10.png" /> 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/Top10Schools5_.png" /> <br />': json_Top10Schools5JSON/*, 'School Test Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_0050.png" />  0.0-5.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_50100.png" />  5.0-10.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_100150.png" />  10.0-15.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_150200.png" />  15.0-20.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_200250.png" />  20.0-25.0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/SchoolTestResults4_250260.png" />  25.0-26.0%<br />': json_SchoolTestResults4JSON/*,'Park Results<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_00.png" />  0-0%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_025.png" />  0-25%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_2550.png" />  25-50%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_5075.png" />  50-75%<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="legend/ParkResults3_75100.png" />  75-100%<br />': json_ParkResults3JSON*/,'<img src="legend/2016water2.png" /> 2016 Water Main Projects': water_mains },{collapsed:false, position: 'topleft'}).addTo(map_top10Schools);
 setBounds();
 map_top10Schools.createPane('labels');
 map_top10Schools.getPane('labels').style.zIndex = 650;
