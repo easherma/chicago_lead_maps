@@ -24,7 +24,6 @@ var map_top10Schools = L.map('map_top10Schools', {
   zoomControl:true, maxZoom:19, minZoom:1
 })
 map_top10Schools.zoomControl.setPosition('topright');
-//var hash = new L.Hash(map_top10Schools);
 map_top10Schools.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
 var feature_group = new L.featureGroup([]);
 var bounds_group = new L.featureGroup([]);
